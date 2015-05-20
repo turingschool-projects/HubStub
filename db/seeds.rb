@@ -300,7 +300,7 @@ class Seed
   end
 
   def generate_users
-    50.times do |i|
+    20.times do |i|
       user = User.create!(
         full_name: Faker::Name.name,
         email: Faker::Internet.email,
