@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   before_save       :downcase_email
   before_create     :create_activation_digest
 
-  validates :full_name, presence: true, length: { in: 5..100 },
-                        format: { with: /\A[a-z ,.\'-]+\z/i, }
+  validates :full_name, presence: true, length: { in: 5..100 }
+
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, },
                     uniqueness: { case_sensitive: false }

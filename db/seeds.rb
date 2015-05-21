@@ -47,22 +47,22 @@ class Seed
     @images = Image.create([
       { title: "Blazers vs. Nuggets",
         description: "Lillard vs Nuggets",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png") },
+        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Hannibal Burress",
         description: "Hannibal Burress Headshot",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png") },
+        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Pitbull and Enrique Iglesias",
         description: "Pitbull and Enrique Being Bosses",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png") },
+        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "ABBA!!!",
         description: "The whole gang",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png") },
+        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Portland Timbers",
         description: "The Portland Timbers",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png") },
+        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Missing",
         description: "crowd",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png") }
+        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" }
     ])
   end
 
@@ -319,8 +319,8 @@ class Seed
   def generate_users
     20.times do |i| #200000
       user = User.create!(
-        full_name: (Faker::Name.name + i)
-        email: (i + Faker::Internet.email)
+        full_name: Faker::Name.name + i.to_s,
+        email: i.to_s + Faker::Internet.email,
         password:              "password",
         password_confirmation: "password",
         street_1:              Faker::Address.street_address,
@@ -328,7 +328,7 @@ class Seed
         city:                  Faker::Address.city,
         state:                 Faker::Address.state,
         zipcode:               Faker::Address.zip_code,
-        display_name:          (Faker::Internet.user_name + i),
+        display_name:          Faker::Internet.user_name + i.to_s,
         activated:             true,
         activated_at:          Time.zone.now
         )
@@ -415,7 +415,7 @@ class Seed
         delivery_method: "electronic",
         event_id: event.id,
         user_id: user.id,
-        ticket: "http://southtexascomiccon.com/wp-content/uploads/2015/03/Data-Ticket-icon.png",
+        ticket_file_name: "http://southtexascomiccon.com/wp-content/uploads/2015/03/Data-Ticket-icon.png",
         )
         puts "Item #{i}: #{item.id} created!"
     end
