@@ -1,37 +1,40 @@
+## HubStub
 
+This application provides a peer-to-peer marketplace for buying and
+selling Live Event Tickets.
 
-## The Pivot || HubStub
+Visit us at [http://hubstub.herokuapp.com](http://hubstub.herokuapp.com)
 
-**LIVE HERE:** Hubstub.us
+### Project Dependencies
 
-*This three week group Ruby on Rails project was a pivot from a food ordering site into a market place for both buying and selling event tickets. It featured a session based shopping cart, Administrative Dashboard, and filter based queries.*
+* Mandrill -- required for transactional emails -- needs `MANDRILL_USERNAME` and `MANDRILL_APIKEY` ENV vars
+* Amazon S3 -- used for file uploads -- needs `S3_BUCKET_NAME`, `AWS_ACCESS_KEY_ID`, and `AWS_SECRET_ACCESS_KEY` ENV vars
+* Skylight IO -- used for production performance monitoring -- Configure this by setting a `SKYLIGHT_AUTHENTICATION` environment variable
+* ImageMagick -- used for resizing and cropping images in development; make sure you have it installed: `brew install imagemagick`
 
-HubStub was brought to you by Scott Crawford, Bhargavi Satpathy, Krista Nelson and
-Nathan Owsiany.
+You'll also need to make sure Paperclip is configured in production to use
+the appropriate region for the S3 Bucket you provided. This setting is found
+in `config/environments/production.rb`:
 
-This project is for the third module at the Turing School of Software and
-Design.
+```
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_host_name: 's3.amazonaws.com', # <-- SET THIS TO YOUR REGION
+    s3_credentials: {
+      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    },
+    bucket: ENV['S3_BUCKET_NAME']
+  }
+```
 
-Full project specifications are available here:
-http://tutorials.jumpstartlab.com/projects/the_pivot.html
+Finally, if you created a dedicated AWS "IAM" user account for this application's
+S3 access, don't forget to set up an "Access Policy" for that user, giving them
+"Full Access" to AWS S3 resources. More info on this step can be found [here](http://rexstjohn.com/how-to-solve-access-denied-with-heroku-paperclip-s3-ror/).
 
-Scott Crawford: https://github.com/ScottCrawford03
+#### Contributor Log
 
-Bhargavi Satpathy: https://github.com/bhargavisatpathy
-
-Krista Nelson: https://github.com/KristaANelson
-
-Nathan Owsiany: https://github.com/ndwhtlssthr
-
-## Notes
-
-To get this to run locally, you need to run the following:
-
-    brew install imagemagick
-
-### Here's what you'll need to do after pulling to get it working on heroku
-* `bundle install`
-* `git push heroku master`
-* `heroku pg:reset`
-* `heroku run rake db:schema:load db:seed`
-* `heroku open` and look at all the glorious menu/item images
+* [ Scott Crawford ]( https://github.com/ScottCrawford03 )
+* [ Bhargavi Satpathy ]( https://github.com/bhargavisatpathy )
+* [ Krista Nelson ]( https://github.com/KristaANelson )
+* [ Nathan Owsiany ]( https://github.com/ndwhtlssthr )
