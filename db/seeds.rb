@@ -317,7 +317,7 @@ class Seed
   end
 
   def generate_users
-    20.times do |i| #200000
+    200000.times do |i|
       user = User.create!(
         full_name: Faker::Name.name + i.to_s,
         email: i.to_s + Faker::Internet.email,
@@ -398,7 +398,7 @@ class Seed
   end
 
   def generate_items
-    50.times do |i| #500000
+    300000.times do |i|
       event_offset = rand(Event.count)
       event = Event.offset(event_offset).first
 
@@ -420,7 +420,7 @@ class Seed
         puts "Item #{i}: #{item.id} created!"
     end
 
-    100.times do |i|
+    100000.times do |i|
       event_offset = rand(Event.count)
       event = Event.offset(event_offset).first
 
@@ -441,7 +441,7 @@ class Seed
         puts "Item #{i}: #{item.id} created!"
     end
 
-    50.times do |i|
+    100000.times do |i|
       event_offset = rand(Event.count)
       event = Event.offset(event_offset).first
 
@@ -620,7 +620,7 @@ class Seed
   end
 
   def generate_orders
-    100.times do |i| #50000
+    50000.times do |i|
       user = User.find(rand(20) + 1)
       order = Order.create!(user_id: user.id, status: "ordered")
       @item = Item.new(
