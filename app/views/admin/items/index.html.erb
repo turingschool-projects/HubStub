@@ -20,7 +20,7 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td><%= image_tag item.image.img.url(:item_manage_list), class: "manage-item-img" %></td>
+        <td><%= image_tag item.image.image_url, class: "manage-item-img" %></td>
         <td><%= item.title %></td>
         <td><%= item.description %></td>
         <td><%= item.dollar_amount %></td>
