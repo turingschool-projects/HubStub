@@ -26,6 +26,12 @@
   background-color: white;
 }
 
+.admin-event-table .event-image{
+  width: 200px;
+  height: 150px;
+}
+
+
 .admin-user-listing-table {
   background-color: white;
 }
