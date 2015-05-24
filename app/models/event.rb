@@ -46,7 +46,7 @@ class Event < ActiveRecord::Base
   end
 
   def event_banner
-    image.img.url(:event_banner)
+    image.image_url
   end
 
   def venue_location
