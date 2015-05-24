@@ -47,22 +47,22 @@ class Seed
     @images = Image.create([
       { title: "Blazers vs. Nuggets",
         description: "Lillard vs Nuggets",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Hannibal Burress",
         description: "Hannibal Burress Headshot",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Pitbull and Enrique Iglesias",
         description: "Pitbull and Enrique Being Bosses",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "ABBA!!!",
         description: "The whole gang",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Portland Timbers",
         description: "The Portland Timbers",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Missing",
         description: "crowd",
-        img: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" }
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" }
     ])
   end
 
