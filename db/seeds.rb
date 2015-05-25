@@ -7,6 +7,7 @@ class Seed
                 :events
 
   def initialize
+    @time = Time.now
     p "=============================="
     p "Seeding started"
     p "=============================="
@@ -21,6 +22,7 @@ class Seed
     p "=============================="
     p "Seed data loaded"
     p "=============================="
+    puts "Your total seed time brah: #{@time} - #{Time.now}"
   end
 
   def generate_categories
@@ -317,23 +319,22 @@ class Seed
   end
 
   def generate_users
-    200000.times do |i|
-      user = User.create!(
-        full_name: Faker::Name.name + i.to_s,
-        email: i.to_s + Faker::Internet.email,
-        password:              "password",
-        password_confirmation: "password",
-        street_1:              Faker::Address.street_address,
-        street_2:              Faker::Address.secondary_address,
-        city:                  Faker::Address.city,
-        state:                 Faker::Address.state,
-        zipcode:               Faker::Address.zip_code,
-        display_name:          Faker::Internet.user_name + i.to_s,
-        activated:             true,
-        activated_at:          Time.zone.now
-        )
-      puts "User #{i}: #{user.display_name} created!"
+
+      User.populate(200000) do |person|
+        person.full_name =             Faker::Name.name,
+        person.email =                 Faker::Internet.email,
+        person.street_1 =              Faker::Address.street_address,
+        person.street_2 =              Faker::Address.secondary_address,
+        person.city =                  Faker::Address.city,
+        person.state =                 Faker::Address.state,
+        person.zipcode =               Faker::Address.zip_code.to_i,
+        person.display_name =          Faker::Internet.user_name,
+        person.activated =             true,
+        person.activated_at =          Time.zone.now
     end
+
+    puts 'users were created'
+
     @users = User.create!([
       { full_name:             "Rachel Warbelow",
         email:                 "rachel@example.com",
@@ -398,69 +399,22 @@ class Seed
   end
 
   def generate_items
-    300000.times do |i|
-      event_offset = rand(Event.count)
-      event = Event.offset(event_offset).first
 
-      user_offset = rand(User.count)
-      user = User.offset(user_offset).first
+    Item.populate(500000) do |item|
+      item.unit_price =      rand(1000..10000)
+      item.pending =         false
+      item.sold =            false
+      item.section =         rand(1..100)
+      item.row =             rand(1..50)
+      item.seat =            rand(1..20)
+      item.delivery_method = "electronic"
+      item.event_id = rand(1..20)
+      item.user_id = rand(1..200000)
+      item.ticket_file_name = "http://southtexascomiccon.com/wp-content/uploads/2015/03/Data-Ticket-icon.png"
 
-      item = Item.create!(
-        unit_price:      rand(1000..10000),
-        pending:         false,
-        sold:            false,
-        section:         rand(1..100),
-        row:             rand(1..50),
-        seat:            rand(1..20),
-        delivery_method: "electronic",
-        event_id: event.id,
-        user_id: user.id,
-        ticket_file_name: "http://southtexascomiccon.com/wp-content/uploads/2015/03/Data-Ticket-icon.png",
-        )
-        puts "Item #{i}: #{item.id} created!"
     end
 
-    100000.times do |i|
-      event_offset = rand(Event.count)
-      event = Event.offset(event_offset).first
-
-      user_offset = rand(User.count)
-      user = User.offset(user_offset).first
-
-      item = Item.create!(
-        unit_price:      rand(1000..10000),
-        pending:         false,
-        sold:            false,
-        section:         rand(1..100),
-        row:             rand(1..50),
-        seat:            rand(1..20),
-        delivery_method: "physical",
-        event_id: event.id,
-        user_id: user.id
-        )
-        puts "Item #{i}: #{item.id} created!"
-    end
-
-    100000.times do |i|
-      event_offset = rand(Event.count)
-      event = Event.offset(event_offset).first
-
-      user_offset = rand(User.count)
-      user = User.offset(user_offset).first
-
-      item = Item.create!(
-        unit_price:      rand(1000..10000),
-        pending:         false,
-        sold:            true,
-        section:         rand(1..100),
-        row:             rand(1..50),
-        seat:            rand(1..20),
-        delivery_method: "physical",
-        event_id: event.id,
-        user_id: user.id,
-        )
-        puts "Item #{i}: #{item.id} created!"
-    end
+    puts 'items were created'
 
     @item1 = Item.new(
       unit_price:      3999,
@@ -620,35 +574,17 @@ class Seed
   end
 
   def generate_orders
-    50000.times do |i|
-      user = User.find(rand(20) + 1)
-      order = Order.create!(user_id: user.id, status: "ordered")
-      @item = Item.new(
-      unit_price:      rand(2999) + 10,
-      pending:         false,
-      sold:            false,
-      section:         128,
-      row:             8,
-      seat:            29,
-      delivery_method: "physical")
 
-      puts "#{i} Order #{order.id}: Order for #{user.full_name} created!"
+      Order.populate(50000) do |order|
+      order.user_id = rand(1..200000)
+      order.total_price = rand(1000..250000)
+      OrderItem.create(item_id: rand(1..500000), order_id: order)
     end
 
-    5.times do |i|
-      order = Order.create!(user_id: 3, status: "ordered")
-      add_items(order)
-    end
+    puts 'orders were created!'
+
   end
 
-  private
-
-  def add_items(order)
-    5.times do |i|
-      item = Item.find(rand(20) + 1)
-      OrderItem.create(item_id: item.id, order_id: order.id)
-    end
-  end
 end
 
 Seed.new
