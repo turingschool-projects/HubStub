@@ -1,6 +1,13 @@
 class Seed
-  attr_accessor :categories, :items, :users, :admins, :venues, :events
+  attr_accessor :categories,
+                :items,
+                :users,
+                :admins,
+                :venues,
+                :events
+
   def initialize
+    @time = Time.now
     p "=============================="
     p "Seeding started"
     p "=============================="
@@ -15,13 +22,26 @@ class Seed
     p "=============================="
     p "Seed data loaded"
     p "=============================="
+    puts "Your total seed time brah: #{@time} - #{Time.now}"
   end
 
   def generate_categories
     @categories = Category.create([
-      { name: "Sports" },
-      { name: "Music" },
-      { name: "Theater" },
+      { name: "Purina 2015 Agility Dog Competition: small dogs" },
+      { name: "Egyptian Death Metal" },
+      { name: "Rock n' Roll Mime Competition: juniors" },
+      { name: "Knock-knock jokes recovery group: 12 step program" },
+      { name: "Failed George Lucas Films" },
+      { name: "Revolutionary War Reenactment: Swim-suit Edition" },
+      { name: "Australian Walk-About" },
+      { name: "International Film Festival" },
+      { name: "Puppet Show" },
+      { name: "Acapela" },
+      { name: "Thespians On Ice" },
+      { name: "Comicon" },
+      { name: "Turing Community Night" },
+      { name: "Da Gun Show" },
+      { name: "Petting Zoo" }
     ])
   end
 
@@ -29,22 +49,22 @@ class Seed
     @images = Image.create([
       { title: "Blazers vs. Nuggets",
         description: "Lillard vs Nuggets",
-        img: File.new("#{Rails.root}/app/assets/images/blazers-nuggets.jpg") },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Hannibal Burress",
         description: "Hannibal Burress Headshot",
-        img: File.new("#{Rails.root}/app/assets/images/hannibal-buress.jpg") },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Pitbull and Enrique Iglesias",
         description: "Pitbull and Enrique Being Bosses",
-        img: File.new("#{Rails.root}/app/assets/images/pitbull-enrique.jpg") },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "ABBA!!!",
         description: "The whole gang",
-        img: File.new("#{Rails.root}/app/assets/images/abba.jpg") },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Portland Timbers",
         description: "The Portland Timbers",
-        img: File.new("#{Rails.root}/app/assets/images/timbers.jpg") },
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" },
       { title: "Missing",
         description: "crowd",
-        img: File.new("#{Rails.root}/app/assets/images/crowd.jpg") }
+        image_url: "http://cdn.alltheragefaces.com/img/faces/large/surprised-reaction-guy-l.png" }
     ])
   end
 
@@ -294,32 +314,30 @@ class Seed
     @event16.save
     @event17.save
     @event18.save
-    sleep 2
     @event19.save
     @event20.save
   end
 
   def generate_users
-    20.times do |i|
-      user = User.create!(
-        full_name: Faker::Name.name,
-        email: Faker::Internet.email,
-        password:              "password",
-        password_confirmation: "password",
-        street_1:              Faker::Address.street_address,
-        street_2:              Faker::Address.secondary_address,
-        city:                  Faker::Address.city,
-        state:                 Faker::Address.state,
-        zipcode:               Faker::Address.zip_code,
-        display_name:          Faker::Internet.user_name,
-        activated:             true,
-        activated_at:          Time.zone.now
-        )
-      puts "User #{i}: #{user.display_name} created!"
+
+      User.populate(200000) do |person|
+        person.full_name =             Faker::Name.name,
+        person.email =                 Faker::Internet.email,
+        person.street_1 =              Faker::Address.street_address,
+        person.street_2 =              Faker::Address.secondary_address,
+        person.city =                  Faker::Address.city,
+        person.state =                 Faker::Address.state,
+        person.zipcode =               Faker::Address.zip_code.to_i,
+        person.display_name =          Faker::Internet.user_name,
+        person.activated =             true,
+        person.activated_at =          Time.zone.now
     end
+
+    puts 'users were created'
+
     @users = User.create!([
       { full_name:             "Rachel Warbelow",
-        email:                 "demo+rachel@example.com",
+        email:                 "rachel@example.com",
         password:              "password",
         password_confirmation: "password",
         street_1:              "1111 Downing St.",
@@ -331,7 +349,7 @@ class Seed
         activated:             true,
         activated_at:          Time.zone.now },
       { full_name:             "Jeff Casimir",
-        email:                 "demo+jeff@example.com",
+        email:                 "jeff@example.com",
         password:              "password",
         password_confirmation: "password",
         street_1:              "1111 Downing St.",
@@ -343,7 +361,7 @@ class Seed
         activated:             true,
         activated_at:          Time.zone.now },
       { full_name:             "Jorge Tellez",
-        email:                 "demo+jorge@example.com",
+        email:                 "jorge@example.com",
         password:              "password",
         password_confirmation: "password",
         street_1:              "1111 Downing St.",
@@ -381,69 +399,22 @@ class Seed
   end
 
   def generate_items
-    100.times do |i|
-      event_offset = rand(Event.count)
-      event = Event.offset(event_offset).first
 
-      user_offset = rand(User.count)
-      user = User.offset(user_offset).first
+    Item.populate(500000) do |item|
+      item.unit_price =      rand(1000..10000)
+      item.pending =         false
+      item.sold =            false
+      item.section =         rand(1..100)
+      item.row =             rand(1..50)
+      item.seat =            rand(1..20)
+      item.delivery_method = "electronic"
+      item.event_id = rand(1..20)
+      item.user_id = rand(1..200000)
+      item.ticket_file_name = "http://southtexascomiccon.com/wp-content/uploads/2015/03/Data-Ticket-icon.png"
 
-      item = Item.create!(
-        unit_price:      rand(1000..10000),
-        pending:         false,
-        sold:            false,
-        section:         rand(1..100),
-        row:             rand(1..50),
-        seat:            rand(1..20),
-        delivery_method: "electronic",
-        event_id: event.id,
-        user_id: user.id,
-        ticket: File.new("#{Rails.root}/app/assets/images/fake_ticket.pdf"
-        ))
-        puts "Item #{i}: #{item.id} created!"
     end
 
-    100.times do |i|
-      event_offset = rand(Event.count)
-      event = Event.offset(event_offset).first
-
-      user_offset = rand(User.count)
-      user = User.offset(user_offset).first
-
-      item = Item.create!(
-        unit_price:      rand(1000..10000),
-        pending:         false,
-        sold:            false,
-        section:         rand(1..100),
-        row:             rand(1..50),
-        seat:            rand(1..20),
-        delivery_method: "physical",
-        event_id: event.id,
-        user_id: user.id
-        )
-        puts "Item #{i}: #{item.id} created!"
-    end
-
-    100.times do |i|
-      event_offset = rand(Event.count)
-      event = Event.offset(event_offset).first
-
-      user_offset = rand(User.count)
-      user = User.offset(user_offset).first
-
-      item = Item.create!(
-        unit_price:      rand(1000..10000),
-        pending:         false,
-        sold:            true,
-        section:         rand(1..100),
-        row:             rand(1..50),
-        seat:            rand(1..20),
-        delivery_method: "physical",
-        event_id: event.id,
-        user_id: user.id,
-        )
-        puts "Item #{i}: #{item.id} created!"
-    end
+    puts 'items were created'
 
     @item1 = Item.new(
       unit_price:      3999,
@@ -597,41 +568,23 @@ class Seed
                  password_confirmation: "password",
                  password:              "password")
     Admin.create(full_name:             "Josh Cheek",
-                 email:                 "demo+josh@example.com",
+                 email:                 "josh@example.com",
                  password_confirmation: "password",
                  display_name:          "josh")
   end
 
   def generate_orders
-    100.times do |i|
-      user = User.find(rand(20) + 1)
-      order = Order.create!(user_id: user.id, status: "ordered")
-      @item = Item.new(
-      unit_price:      rand(2999) + 10,
-      pending:         false,
-      sold:            false,
-      section:         128,
-      row:             8,
-      seat:            29,
-      delivery_method: "physical")
 
-      puts "#{i} Order #{order.id}: Order for #{user.full_name} created!"
+      Order.populate(50000) do |order|
+      order.user_id = rand(1..200000)
+      order.total_price = rand(1000..250000)
+      OrderItem.create(item_id: rand(1..500000), order_id: order)
     end
 
-    5.times do |i|
-      order = Order.create!(user_id: 3, status: "ordered")
-      add_items(order)
-    end
+    puts 'orders were created!'
+
   end
 
-  private
-
-  def add_items(order)
-    5.times do |i|
-      item = Item.find(rand(20) + 1)
-      OrderItem.create(item_id: item.id, order_id: order.id)
-    end
-  end
 end
 
 Seed.new
