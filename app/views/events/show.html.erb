@@ -31,7 +31,6 @@
   </div>
   <div class="row event-page-ticket-listing event-page-inner">
     <table class="table table-hover event-tickets">
-      <%= require 'pry';binding.pry %>
       <% if @items.empty? %>
       <tr> <h3><em><%="Currently no tickets available for #{@event.title}."%> </em></h3> </tr>
         <tr> <%= link_to("Search available events", tickets_path, class: "btn btn-default") %> </tr>
@@ -49,7 +48,6 @@
       <tbody>
         <% @items.each do |item| %>
           <tr>
-            <%= require 'pry';binding.pry %>
             <td class="vert-align"><%= link_to(item.seller, seller_store_path(item.seller)) %></td>
             <td class="vert-align"><%= item.section %></td>
             <td class="vert-align"><%= item.row %></td>
