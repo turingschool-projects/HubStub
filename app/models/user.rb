@@ -28,8 +28,6 @@ class User < ActiveRecord::Base
                                                account_activations),
                              message: "%{value} is reserved." }
   validates :street_1, :city, :state, :zipcode, presence: true
-  validates :slug, uniqueness: true
-
 
   def admin?
     false
