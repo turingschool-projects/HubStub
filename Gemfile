@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 gem 'skylight'
-gem "paperclip", "~> 4.2"
 gem 'faker'
 gem 'rails', '4.2.0'
 gem 'pg'
@@ -17,6 +16,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'aws-sdk'
 gem 'populator'
+gem 'will_paginate'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'openssl'

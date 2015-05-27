@@ -328,10 +328,14 @@ class Seed
         person.city =                  Faker::Address.city,
         person.state =                 Faker::Address.state,
         person.zipcode =               Faker::Address.zip_code.to_i,
-        person.display_name =          Faker::Internet.user_name,
+        person.display_name =          Faker::Internet.user_name + rand(1..100000).to_s,
         person.activated =             true,
         person.activated_at =          Time.zone.now
+        person.password =              "password"
+        person.password_confirmation = "password"
+
     end
+
 
     puts 'users were created'
 

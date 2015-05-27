@@ -44,10 +44,10 @@ class Event < ActiveRecord::Base
   def venue_name
     venue.name
   end
-
-  def event_banner
-    image.image_url
-  end
+  
+  # def event_banner
+  #   image.image_url
+  # end
 
   def venue_location
     venue.location
