@@ -2,7 +2,8 @@ class Admin::UsersController < ApplicationController
   before_action :authorize
 
   def index
-    @users = User.order(:full_name)
+    @users = User.all.paginate(:page => params[:page], :per_page => 50)
+    #@users = User.order(:full_name).paginate(:page => params[:page], :per_page => 50)
   end
 
   def show
