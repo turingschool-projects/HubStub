@@ -8,8 +8,8 @@
     <th>Cancel Order</th>
   </tr>
   <% @orders.each do |order| %>
-    <%= content_tag :tr, id: order.id do -%>
-      <td><%= link_to order.id, seller_order_path(order.buyer.slug, order.id) %></td>
+    <%= content_tag :tr, id: order.id do %>
+      <td><%= link_to order.id, orders_path(order.id) %></td>
       <td><%= order.formatted_date %></td>
       <td><%= order.formatted_hour %></td>
       <td><span class="label label-primary"><%= order.status %></span></td>
@@ -20,5 +20,6 @@
       <% end %>
     <% end -%>
   <% end %>
-</table>
+  </table>
 </div>
+<%= will_paginate @orders %>

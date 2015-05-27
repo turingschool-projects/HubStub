@@ -4,7 +4,7 @@ class Admin::ItemsController < ApplicationController
   before_action :authorize
 
   def index
-    @items = Item.all
+    @items = Item.paginate(:page => params[:page], :per_page => 50)
   end
 
   def new

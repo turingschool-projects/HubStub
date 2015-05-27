@@ -6,7 +6,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find_by(id: params[:id])
-    @items = @event.items.paginate(:page => params[:page], :per_page => 100)
+    @items = @event.items.paginate(:page => params[:page], :per_page => 50)
   end
 
   def random
