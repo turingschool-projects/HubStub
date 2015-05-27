@@ -5,7 +5,7 @@ def not_found
  end
 
  def unacceptable
-   render :status => 422
+   render :status => 401
  end
 
  def internal_error
