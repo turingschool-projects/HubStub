@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   get "/admin" => "admin#index"
 
+  match "/404", to: "errors#not_found", via: :all
+  match "/401", as: "invalid", to: "errors#unacceptable", via: :all
+  match "/500", to: "errors#internal_error", via: :all
+
 
   resources :venues, only: [:show]
 
@@ -50,6 +54,4 @@ Rails.application.routes.draw do
     resources :items, only: [:edit, :destroy, :update]
     resources :orders, only: [:index, :show]
   end
-
-  get "*rest" => "static_pages#not_found"
 end
