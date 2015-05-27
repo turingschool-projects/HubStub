@@ -321,18 +321,18 @@ class Seed
   def generate_users
 
       User.populate(200000) do |person|
-        person.full_name =             Faker::Name.name,
-        person.email =                 Faker::Internet.email,
-        person.street_1 =              Faker::Address.street_address,
-        person.street_2 =              Faker::Address.secondary_address,
-        person.city =                  Faker::Address.city,
-        person.state =                 Faker::Address.state,
-        person.zipcode =               Faker::Address.zip_code.to_i,
-        display_name =                 Faker::Internet.user_name + rand(1..100000).to_s,
-        person.display_name =          display_name,
-        person.activated =             true,
-        person.activated_at =          Time.zone.now,
-        person.slug =                  display_name.parameterize,
+        person.full_name =             Faker::Name.name
+        person.email =                 Faker::Internet.email
+        person.street_1 =              Faker::Address.street_address
+        person.street_2 =              Faker::Address.secondary_address
+        person.city =                  Faker::Address.city
+        person.state =                 Faker::Address.state
+        person.zipcode =               Faker::Address.zip_code.to_i
+        display_name =                 Faker::Internet.user_name + rand(1..100000).to_s
+        person.display_name =          display_name
+        person.activated =             true
+        person.activated_at =          Time.zone.now
+        person.slug =                  display_name.parameterize
         person.password_digest =       "$2a$10$kSWWuucZXGg6NV2ODwkp2.AUhW/mRuJ1DVrQl3pJER6bjeUZZpQHG"
     end
 
