@@ -15,4 +15,5 @@ class Seller::UsersController < ApplicationController
     @user = User.find_by(slug: params[:slug])
     @user_events = @user.group_events(session[:cart])
   end
+
 end
