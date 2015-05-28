@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
   def index
-    all_events = Item.active.not_in_cart(session[:cart]).map(&:event).uniq
-    @events = all_events.select { |event| event.category.name == params[:category] } if params[:category]
+    # all_events = Item.map(&:event).uniq
+    @events = Event.all
+    # @events = all_events.select { |event| event.category.name == params[:category] } if params[:category]
   end
 
   def show
