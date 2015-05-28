@@ -10,7 +10,7 @@
 <body>
   <div id="wrapper">
     <div id="header">
-      <%= render partial: "shared/nav_bar" %>
+      <%= render partial: current_user.nav_bar %>
 
       <div id="errors">
         <% flash.each do |name, message| %>
