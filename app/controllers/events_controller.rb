@@ -11,9 +11,9 @@ class EventsController < ApplicationController
 
   def random
     if Event.count > 0
-      offset = rand(Event.active.count)
-      event = Event.active.offset(offset).first
-      redirect_to event
+      redirect_to Event.find(rand(Event.count))
+      # redirect_to Event.rand
+      # event = Event.find(rand(Event.count))
     else
       redirect_to root_path
     end
