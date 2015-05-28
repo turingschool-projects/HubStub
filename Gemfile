@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'skylight'
+gem "skylight"
 gem 'faker'
 gem 'rails', '4.2.0'
 gem 'pg'
