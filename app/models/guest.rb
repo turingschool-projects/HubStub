@@ -9,6 +9,6 @@ class Guest
   end
 
   def slug
-    "1"
+    false
   end
 end
