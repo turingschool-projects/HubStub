@@ -7,4 +7,8 @@ class Guest
   def admin?
     false
   end
+
+  def slug
+    "1"
+  end
 end
