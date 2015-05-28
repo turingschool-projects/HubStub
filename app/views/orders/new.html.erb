@@ -3,7 +3,5 @@
 </div>
 <%= render partial: "shared/cart_items" %>
 <div class="checkout">
-  <% if current_user %>
-  <%= button_to "Submit Order", orders_path(user_id: current_user.id, cart: @cart), class: 'btn btn-default btn-lg' %>
+  <%= render partial: current_user.order_button %>
 </div>
-<% end %>

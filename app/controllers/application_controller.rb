@@ -10,9 +10,9 @@ class ApplicationController < ActionController::Base
 
   def current_user
     if session[:admin] && session[:admin] == true
-      @current_user ||= Admin.find(session[:user_id]) if session[:user_id]
+      @current_user ||= CurrentUser.new(Admin.find_by(id: session[:user_id]))
     else
-      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+      @current_user ||= CurrentUser.new(User.find_by(id: session[:user_id]))
     end
   end
   helper_method :current_user

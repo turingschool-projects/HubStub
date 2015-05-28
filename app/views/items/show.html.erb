@@ -9,8 +9,6 @@
   <span class="item-desc"><%= @item.description %></span></br>
   <%= @item.dollar_amount %></br>
   <% if @item.active? %>
-    <% unless current_user && current_user.admin? %>
-      <%= button_to "Add to cart", cart_path(item_id: @item.id) %>
-    <% end %>
+    <%= render partial: current_user.add_to_cart_button %>
   <% end %>
 </div>
