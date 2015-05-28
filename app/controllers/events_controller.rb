@@ -10,8 +10,9 @@ class EventsController < ApplicationController
   end
 
   def random
-    if Event.count > 0
-      redirect_to Event.find(rand(Event.count))
+    total_events = Event.count
+    if total_events > 0
+      redirect_to Event.find(rand(total_events))
       # redirect_to Event.rand
       # event = Event.find(rand(Event.count))
     else
