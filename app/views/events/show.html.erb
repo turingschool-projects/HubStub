@@ -54,7 +54,7 @@
             <td class="vert-align"><%= item.seat %></td>
             <td class="vert-align delivery-meth"><%= item.delivery_method.capitalize %></td>
             <td class="vert-align"><%= item.dollar_amount %></td>
-            <%= render partial: current_user.event_add_to_cart(item.user.slug), locals: {item_id: item.id} %>
+            <%= render partial: current_user.event_add_to_cart(current_user.slug), locals: {item_id: item.id} %>
           </tr>
         <% end %>
         <% end %>
