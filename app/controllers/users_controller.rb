@@ -9,9 +9,10 @@ class UsersController < ApplicationController
   end
 
   def create
+    user_params[:email].downcase!
     @user = User.new(user_params)
     if @user.save
-      UserMailer.account_activation(@user).deliver_now
+      UserEmailWorker.perform_async(@user.id)
       flash[:success] = "Please check your email to activate your account!"
       redirect_to root_url
     else

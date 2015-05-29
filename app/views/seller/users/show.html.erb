@@ -1,3 +1,4 @@
+<% cache @user do%>
 <div class="seller-page-title">
   <h1><%= @user.full_name %>'s Tickets</h1>
 </div>
@@ -15,10 +16,11 @@
   <% else %>
     <table class="table table-hover event-tickets">
       <% @user_events.each do |event, items| %>
+      <% cache event do %>
       <thead>
         <tr id="seller-events">
           <th colspan=8 class="vert-align">
-            <p id ="seller-event-title"><%= link_to(event.title, event_path(event)) %></p>
+            <p id="seller-event-title"><%= link_to(event.title, event_path(event)) %></p>
             <p id="seller-event-date"><%= event.date.strftime("%A, %B %d, %Y") %></p>
             <p id="seller-event-time"><%= event.formatted_time %></p>
             <p id="seller-event-description"><%= event.description%></p>
@@ -35,6 +37,7 @@
       </thead>
       <tbody>
           <% items.each do |item| %>
+          <% cache item do %>
             <tr>
               <td class="vert-align" id="seller-category">
                 <p>
@@ -51,8 +54,11 @@
               <% end %>
             </tr>
           <% end %>
+          <% end %>
         <% end %>
       </tbody>
     </table>
   <% end %>
+  <% end %>
 </div>
+<% end %>

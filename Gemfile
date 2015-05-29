@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+gem 'sidekiq'
+gem 'mailcatcher'
 gem "skylight"
 gem 'faker'
 gem 'rails', '4.2.0'
